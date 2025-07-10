@@ -3,23 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Joynzo – Join the joy</title>
-
-  <!-- 💅 Tailwind (stand‑alone CDN for quick iteration) -->
+  <title>Joynzo – Find your hobby crew</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- 🔖 Favicon & App icons (inline data‑URI PNG generated from the Joynzo icon) -->
-  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAAAAAClK9W3AAAAEElEQVR4nGNgGAWjYBSMglEwCjAAAJQAAcvL8SsAAAAASUVORK5CYII=" />
-
-  <!-- 📣 Open‑Graph + Twitter cards -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://joynzo.com" />
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAAAAAClK9W3AAAAEElEQVR4nGNgGAWjYBSMglEwCjAAAJQAAcvL8SsAAAAASUVORK5CYII=" />
   <meta property="og:title" content="Joynzo – Join the joy" />
   <meta property="og:description" content="Find hobby buddies in seconds—no endless swiping." />
   <meta property="og:image" content="/assets/og-banner.jpg" />
+  <meta property="og:url" content="https://joynzo.com" />
   <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- 📊 Plausible analytics (replace domain when deployed) -->
   <script defer data-domain="joynzo.com" src="https://plausible.io/js/script.js"></script>
 </head>
 <body class="min-h-screen flex flex-col font-sans text-slate-800 bg-slate-50">
@@ -27,92 +18,110 @@
   <header class="w-full shadow-sm bg-white/90 backdrop-blur sticky top-0 z-30">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
       <a href="#" class="flex items-center text-2xl font-bold text-teal-600">
-        <svg class="h-8 w-8 mr-2 text-amber-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <circle cx="12" cy="12" r="11" class="fill-current opacity-20" />
-          <path d="M12 7a5 5 0 015 5v3l1.8 2.4a1 1 0 01-.8 1.6H6a1 1 0 01-.8-1.6L7 15v-3a5 5 0 015-5z" class="fill-current" />
-        </svg>
+        <svg class="h-8 w-8 mr-2 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" class="opacity-20"/><path d="M12 7a5 5 0 015 5v3l1.8 2.4a2 2 0 01-1.6 1.6H6a1 1 0 01-1.6-1.6L7 15v-3a5 5 0 015-5z"/></svg>
         Joynzo
       </a>
       <nav class="hidden md:flex space-x-6 text-sm font-medium">
-        <a href="#features" class="hover:text-teal-600">Features</a>
-        <a href="#safety" class="hover:text-teal-600">Safety</a>
+        <a href="#explore" class="hover:text-teal-600">Explore</a>
         <a href="#join" class="bg-teal-600 text-white px-4 py-2 rounded-full hover:bg-teal-700 transition">Get Early Access</a>
       </nav>
     </div>
   </header>
 
-  <!-- 🎯 Hero -->
-  <section class="flex-1 flex items-center justify-center bg-gradient-to-b from-teal-50 via-white to-amber-50 py-20 px-4" id="join">
-    <div class="max-w-4xl w-full text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
-        Join the <span class="text-teal-600">joy</span> with Joynzo
-      </h1>
-      <p class="text-lg md:text-xl mb-8 text-slate-600">Find hobby buddies nearby—no endless swiping.</p>
-      <form action="https://getform.io/f/bxoyeyna" method="POST" class="max-w-md mx-auto flex gap-2">
-        <input required type="email" name="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-full border border-slate-300 focus:border-teal-500 focus:outline-none" />
-        <button type="submit" class="bg-amber-400 hover:bg-amber-500 text-slate-800 font-semibold px-6 py-3 rounded-full transition">Notify Me</button>
-      </form>
-      <p class="text-xs text-slate-500 mt-2">No spam, just launch updates. Powered by Getform.</p>
-    </div>
+  <!-- 🎯 Hero + email form -->
+  <section id="join" class="flex flex-col items-center justify-center flex-1 py-20 bg-gradient-to-b from-teal-50 via-white to-amber-50 px-4 text-center">
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-3">Join the <span class="text-teal-600">joy</span> with Joynzo</h1>
+    <p class="text-lg md:text-xl text-slate-600 mb-8">Match with people near you who love the same games, sports &amp; arts.</p>
+    <form action="https://getform.io/f/bxoyeyna" method="POST" class="max-w-md w-full flex gap-2">
+      <input required type="email" name="email" placeholder="Email address" class="flex-1 px-4 py-3 rounded-full border border-slate-300 focus:border-teal-500" />
+      <button type="submit" class="bg-amber-400 hover:bg-amber-500 px-6 py-3 rounded-full font-semibold">Notify Me</button>
+    </form>
+    <p class="text-xs text-teal-700 mt-3 hidden" id="thanksMsg">🎉 Thanks! We'll keep you posted.</p>
   </section>
 
-  <!-- ⚙️ Features -->
-  <section id="features" class="max-w-6xl mx-auto py-20 px-4">
-    <h2 class="text-3xl font-bold text-center mb-12">How Joynzo Works</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-xl shadow-sm">
-        <div class="text-4xl mb-4 text-teal-600">🎯</div>
-        <h3 class="font-semibold text-lg mb-2">Pick Your Interests</h3>
-        <p class="text-slate-600">Select sports, games, and creative hobbies you love.</p>
+  <!-- 🗂️ Explore filters -->
+  <section id="explore" class="max-w-6xl mx-auto py-16 px-4">
+    <h2 class="text-3xl font-bold mb-8 text-center">Find players near you</h2>
+    <div class="grid md:grid-cols-4 gap-4 mb-10">
+      <div class="col-span-2">
+        <label class="block text-sm font-semibold mb-1">Activity / Hobby</label>
+        <select id="hobbyFilter" class="w-full border rounded-lg px-3 py-2">
+          <option value="">Any</option>
+          <optgroup label="Sports"><option>Basketball</option><option>Cricket</option><option>Soccer</option><option>Pickleball</option></optgroup>
+          <optgroup label="Board Games"><option>Chess</option><option>Carrom</option><option>Scrabble</option></optgroup>
+          <optgroup label="Creative & Outdoor"><option>Painting</option><option>Hiking</option><option>Swimming</option></optgroup>
+        </select>
       </div>
-      <div class="bg-white p-6 rounded-xl shadow-sm">
-        <div class="text-4xl mb-4 text-teal-600">📍</div>
-        <h3 class="font-semibold text-lg mb-2">See Who’s Nearby</h3>
-        <p class="text-slate-600">Joynzo shows verified venues and people ready to play.</p>
+      <div>
+        <label class="block text-sm font-semibold mb-1">Language</label>
+        <select id="langFilter" class="w-full border rounded-lg px-3 py-2">
+          <option value="">Any</option>
+          <option>English</option><option>Spanish</option><option>Mandarin</option><option>Hindi</option><option>Tagalog</option>
+        </select>
       </div>
-      <div class="bg-white p-6 rounded-xl shadow-sm">
-        <div class="text-4xl mb-4 text-teal-600">🤝</div>
-        <h3 class="font-semibold text-lg mb-2">Meet &amp; Play</h3>
-        <p class="text-slate-600">Chat, set a time, and turn online matches into real-world fun.</p>
+      <div>
+        <label class="block text-sm font-semibold mb-1">Age group</label>
+        <select id="ageFilter" class="w-full border rounded-lg px-3 py-2">
+          <option value="">Any</option>
+          <option value="u18">Under 18</option>
+          <option value="18-34">18 – 34</option>
+          <option value="35+">35+</option>
+        </select>
       </div>
     </div>
+
+    <div id="results" class="grid md:grid-cols-3 gap-6"></div>
   </section>
 
-  <!-- 🛡 Safety -->
-  <section id="safety" class="bg-slate-100 py-20 px-4">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-12">Safety First</h2>
-      <ul class="space-y-6">
-        <li class="flex items-start"><span class="text-2xl text-amber-500 mr-3">🛡️</span><p class="text-slate-700"><strong>Age-guarded matching.</strong> Under-18 users see minors only.</p></li>
-        <li class="flex items-start"><span class="text-2xl text-amber-500 mr-3">🔒</span><p class="text-slate-700"><strong>Verified accounts.</strong> Email + phone verification plus report/block controls keep Joynzo safe.</p></li>
-        <li class="flex items-start"><span class="text-2xl text-amber-500 mr-3">🌐</span><p class="text-slate-700"><strong>Public meet-ups by default.</strong> First hangouts suggested at public parks or venues.</p></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 🤝 Partners strip -->
-  <section class="py-12 bg-white">
-    <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-8 opacity-80 px-4">
-      <img src="/assets/partner1.svg" alt="Partner 1" class="h-8" />
-      <img src="/assets/partner2.svg" alt="Partner 2" class="h-8" />
-      <img src="/assets/partner3.svg" alt="Partner 3" class="h-8" />
-      <img src="/assets/partner4.svg" alt="Partner 4" class="h-8" />
-    </div>
-  </section>
-
-  <!-- 🔚 Footer -->
-  <footer class="bg-midnight text-white py-8" style="background-color:#18304B;">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-      <span class="text-lg font-semibold flex items-center">
-        <svg class="h-6 w-6 mr-2 text-amber-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="11" class="fill-current opacity-20"/><path d="M12 7a5 5 0 015 5v3l1.8 2.4a2 2 0 01-.8 1.6H6a1 1 0 01-.8-1.6L7 15v-3a5 5 0 015-5z" class="fill-current"/></svg>
-        Joynzo © 2025
-      </span>
-      <nav class="flex space-x-6 text-sm">
-        <a href="/privacy.html" class="hover:text-teal-300">Privacy</a>
-        <a href="/terms.html" class="hover:text-teal-300">Terms</a>
-        <a href="#join" class="hover:text-teal-300">Get Access</a>
-      </nav>
-    </div>
+  <footer class="bg-midnight text-white py-6 text-center" style="background-color:#18304B;">
+    Joynzo © 2025 • <a href="/privacy.html" class="underline">Privacy</a> • <a href="/terms.html" class="underline">Terms</a>
   </footer>
+
+<script>
+// Dummy dataset – swap with backend later
+const players=[
+ {name:'Alisha',age:17,hobbies:['Basketball','Chess'],langs:['English','Hindi']},
+ {name:'Miguel',age:27,hobbies:['Soccer','Hiking'],langs:['Spanish','English']},
+ {name:'Wei',age:34,hobbies:['Pickleball','Painting'],langs:['Mandarin']},
+ {name:'Ethan',age:45,hobbies:['Swimming','Carrom'],langs:['English']}
+];
+
+const hobbySel=document.getElementById('hobbyFilter');
+const langSel=document.getElementById('langFilter');
+const ageSel=document.getElementById('ageFilter');
+const results=document.getElementById('results');
+
+function render(list){
+  results.innerHTML='';
+  list.forEach(p=>{
+    const card=document.createElement('div');
+    card.className='bg-white p-5 rounded-xl shadow-sm';
+    card.innerHTML=`<h3 class='font-semibold mb-1'>${p.name} (${p.age})</h3>
+      <p class='text-xs text-slate-500 mb-2'>${p.langs.join(', ')}</p>
+      <p class='text-sm'><strong>Hobbies:</strong> ${p.hobbies.join(', ')}</p>`;
+    results.appendChild(card);
+  });
+}
+function applyFilters(){
+  let list=[...players];
+  const h=hobbySel.value,l=langSel.value,a=ageSel.value;
+  if(h) list=list.filter(p=>p.hobbies.includes(h));
+  if(l) list=list.filter(p=>p.langs.includes(l));
+  if(a){
+    if(a==='u18') list=list.filter(p=>p.age<18);
+    if(a==='18-34') list=list.filter(p=>p.age>=18&&p.age<=34);
+    if(a==='35+') list=list.filter(p=>p.age>=35);
+  }
+  render(list);
+}
+hobbySel.onchange=langSel.onchange=ageSel.onchange=applyFilters;
+render(players);
+
+// Email success flash
+const form=document.querySelector('form');
+form.addEventListener('submit',()=>{
+  setTimeout(()=>document.getElementById('thanksMsg').classList.remove('hidden'),500);
+});
+</script>
 </body>
 </html>
