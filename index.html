@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joynzo – Join the joy</title>
+
+  <!-- 💅 Tailwind (stand‑alone CDN for quick iteration) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- 🔖 Favicon & App icons (inline data‑URI PNG generated from the Joynzo icon) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAAAAAClK9W3AAAAEElEQVR4nGNgGAWjYBSMglEwCjAAAJQAAcvL8SsAAAAASUVORK5CYII=" />
+
+  <!-- 📣 Open‑Graph + Twitter cards -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://joynzo.com" />
+  <meta property="og:title" content="Joynzo – Join the joy" />
+  <meta property="og:description" content="Find hobby buddies in seconds—no endless swiping." />
+  <meta property="og:image" content="/assets/og-banner.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- 📊 Plausible analytics (replace domain when deployed) -->
+  <script defer data-domain="joynzo.com" src="https://plausible.io/js/script.js"></script>
+</head>
+<body class="min-h-screen flex flex-col font-sans text-slate-800 bg-slate-50">
+  <!-- 🔝 Navigation -->
+  <header class="w-full shadow-sm bg-white/90 backdrop-blur sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+      <a href="#" class="flex items-center text-2xl font-bold text-teal-600">
+        <svg class="h-8 w-8 mr-2 text-amber-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <circle cx="12" cy="12" r="11" class="fill-current opacity-20" />
+          <path d="M12 7a5 5 0 015 5v3l1.8 2.4a1 1 0 01-.8 1.6H6a1 1 0 01-.8-1.6L7 15v-3a5 5 0 015-5z" class="fill-current" />
+        </svg>
+        Joynzo
+      </a>
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        <a href="#features" class="hover:text-teal-600">Features</a>
+        <a href="#safety" class="hover:text-teal-600">Safety</a>
+        <a href="#join" class="bg-teal-600 text-white px-4 py-2 rounded-full hover:bg-teal-700 transition">Get Early Access</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 🎯 Hero -->
+  <section class="flex-1 flex items-center justify-center bg-gradient-to-b from-teal-50 via-white to-amber-50 py-20 px-4" id="join">
+    <div class="max-w-4xl w-full text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+        Join the <span class="text-teal-600">joy</span> with Joynzo
+      </h1>
+      <p class="text-lg md:text-xl mb-8 text-slate-600">Find hobby buddies nearby—no endless swiping.</p>
+      <form action="https://getform.io/f/your-unique-endpoint" method="POST" class="max-w-md mx-auto flex gap-2">
+        <input required type="email" name="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-full border border-slate-300 focus:border-teal-500 focus:outline-none" />
+        <button type="submit" class="bg-amber-400 hover:bg-amber-500 text-slate-800 font-semibold px-6 py-3 rounded-full transition">Notify Me</button>
+      </form>
+      <p class="text-xs text-slate-500 mt-2">No spam, just launch updates. Powered by Getform.</p>
+    </div>
+  </section>
+
+  <!-- ⚙️ Features -->
+  <section id="features" class="max-w-6xl mx-auto py-20 px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">How Joynzo Works</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white p-6 rounded-xl shadow-sm">
+        <div class="text-4xl mb-4 text-teal-600">🎯</div>
+        <h3 class="font-semibold text-lg mb-2">Pick Your Interests</h3>
+        <p class="text-slate-600">Select sports, games, and creative hobbies you love.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm">
+        <div class="text-4xl mb-4 text-teal-600">📍</div>
+        <h3 class="font-semibold text-lg mb-2">See Who’s Nearby</h3>
+        <p class="text-slate-600">Joynzo shows verified venues and people ready to play.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm">
+        <div class="text-4xl mb-4 text-teal-600">🤝</div>
+        <h3 class="font-semibold text-lg mb-2">Meet &amp; Play</h3>
+        <p class="text-slate-600">Chat, set a time, and turn online matches into real-world fun.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🛡 Safety -->
+  <section id="safety" class="bg-slate-100 py-20 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12">Safety First</h2>
+      <ul class="space-y-6">
+        <li class="flex items-start"><span class="text-2xl text-amber-500 mr-3">🛡️</span><p class="text-slate-700"><strong>Age-guarded matching.</strong> Under-18 users see minors only.</p></li>
+        <li class="flex items-start"><span class="text-2xl text-amber-500 mr-3">🔒</span><p class="text-slate-700"><strong>Verified accounts.</strong> Email + phone verification plus report/block controls keep Joynzo safe.</p></li>
+        <li class="flex items-start"><span class="text-2xl text-amber-500 mr-3">🌐</span><p class="text-slate-700"><strong>Public meet-ups by default.</strong> First hangouts suggested at public parks or venues.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 🤝 Partners strip -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-8 opacity-80 px-4">
+      <img src="/assets/partner1.svg" alt="Partner 1" class="h-8" />
+      <img src="/assets/partner2.svg" alt="Partner 2" class="h-8" />
+      <img src="/assets/partner3.svg" alt="Partner 3" class="h-8" />
+      <img src="/assets/partner4.svg" alt="Partner 4" class="h-8" />
+    </div>
+  </section>
+
+  <!-- 🔚 Footer -->
+  <footer class="bg-midnight text-white py-8" style="background-color:#18304B;">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+      <span class="text-lg font-semibold flex items-center">
+        <svg class="h-6 w-6 mr-2 text-amber-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="11" class="fill-current opacity-20"/><path d="M12 7a5 5 0 015 5v3l1.8 2.4a2 2 0 01-.8 1.6H6a1 1 0 01-.8-1.6L7 15v-3a5 5 0 015-5z" class="fill-current"/></svg>
+        Joynzo © 2025
+      </span>
+      <nav class="flex space-x-6 text-sm">
+        <a href="/privacy.html" class="hover:text-teal-300">Privacy</a>
+        <a href="/terms.html" class="hover:text-teal-300">Terms</a>
+        <a href="#join" class="hover:text-teal-300">Get Access</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
