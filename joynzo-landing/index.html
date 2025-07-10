@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Joynzo – Find your hobby crew</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>body{scroll-behavior:smooth}</style>
 </head>
@@ -14,8 +15,8 @@
     <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
       <a href="#" id="logo" class="text-2xl font-bold text-teal-600">Joynzo</a>
       <nav class="flex gap-4">
-        <a href="#explore" id="explore-nav" class="text-sm text-teal-600 hover:underline">Explore</a>
-        <a href="#join" id="join-nav" class="text-sm text-white bg-teal-600 px-3 py-1 rounded">Get Early Access</a>
+        <a href="#" id="show-join" class="text-sm text-teal-600 hover:underline">Join</a>
+        <a href="#" id="show-login" class="text-sm text-teal-600 hover:underline">Login</a>
       </nav>
     </div>
   </header>
@@ -24,22 +25,31 @@
   <section id="join" class="flex flex-col items-center justify-center flex-1 p-8 text-center bg-gradient-to-b from-teal-50 to-white">
     <h1 class="text-3xl font-bold mb-4">Join the joy with Joynzo</h1>
     <form id="signup-form" action="https://getform.io/f/bxoyeyna" method="POST" enctype="multipart/form-data" class="max-w-md w-full grid grid-cols-1 gap-4 mb-4">
+    <form id="signup-form" class="max-w-sm w-full grid gap-3">
       <input name="email" type="email" placeholder="Email address" class="p-3 border rounded" required />
       <input name="name" type="text" placeholder="Your name" class="p-3 border rounded" required />
-      <button type="submit" class="bg-teal-600 text-white p-3 rounded">Create Account</button>
+      <input name="password" type="password" placeholder="Password" class="p-3 border rounded" required />
+      <button type="submit" class="bg-teal-600 text-white p-3 rounded">Create account</button>
     </form>
     <p id="signup-thanks" class="hidden mt-3 text-teal-600">Thanks! Check your email to verify.</p>
+  </section>
+
+  <!-- Login Section -->
+  <section id="login" class="hidden flex flex-col items-center justify-center flex-1 p-8 text-center bg-gradient-to-b from-white to-amber-50">
+    <h1 class="text-3xl font-bold mb-4">Welcome back</h1>
+    <form id="login-form" class="max-w-sm w-full grid gap-3">
+      <input name="email" type="email" placeholder="Email address" class="p-3 border rounded" required />
+      <input name="password" type="password" placeholder="Password" class="p-3 border rounded" required />
+      <button type="submit" class="bg-amber-400 text-white p-3 rounded">Log in</button>
+    </form>
+    <p id="login-error" class="hidden mt-3 text-red-600">Invalid credentials, try again.</p>
   </section>
 
   <!-- Explore Section -->
   <section id="explore" class="hidden flex-col max-w-6xl mx-auto p-8">
     <h2 class="text-2xl font-bold mb-6 text-center">Browse Activities</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-      <div class="bg-white rounded shadow overflow-hidden"><img src="https://source.unsplash.com/collection/190727/300x200" alt="Basketball" class="w-full h-32 object-cover"/><p class="p-2 text-center">Basketball</p></div>
-      <div class="bg-white rounded shadow overflow-hidden"><img src="https://source.unsplash.com/collection/888146/300x200" alt="Hiking" class="w-full h-32 object-cover"/><p class="p-2 text-center">Hiking</p></div>
-      <div class="bg-white rounded shadow overflow-hidden"><img src="https://source.unsplash.com/collection/1127163/300x200" alt="Chess" class="w-full h-32 object-cover"/><p class="p-2 text-center">Chess</p></div>
-      <div class="bg-white rounded shadow overflow-hidden"><img src="https://source.unsplash.com/collection/189483/300x200" alt="Surfing" class="w-full h-32 object-cover"/><p class="p-2 text-center">Surfing</p></div>
-      <!-- Add more static cards as needed -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="cards">
+      <!-- Cards inserted dynamically -->
     </div>
   </section>
 
@@ -47,12 +57,40 @@
 
   <script>
   document.addEventListener('DOMContentLoaded',() => {
-    const showExplore = () => { document.getElementById('join').classList.add('hidden'); document.getElementById('explore').classList.remove('hidden'); };
-    const showJoin = () => { document.getElementById('explore').classList.add('hidden'); document.getElementById('join').classList.remove('hidden'); };
-    document.getElementById('explore-nav').addEventListener('click',e => { e.preventDefault(); showExplore(); });
-    document.getElementById('join-nav').addEventListener('click',e => { e.preventDefault(); showJoin(); });
-    document.getElementById('logo').addEventListener('click',e => { e.preventDefault(); showJoin(); });
-    document.getElementById('signup-form').addEventListener('submit', e => { e.preventDefault(); document.getElementById('signup-thanks').classList.remove('hidden'); setTimeout(showExplore, 1000); });
+    // Sections
+    const joinSec = document.getElementById('join');
+    const loginSec = document.getElementById('login');
+    const expSec = document.getElementById('explore');
+
+    // Nav links
+    document.getElementById('show-join').onclick = e => { e.preventDefault(); joinSec.classList.remove('hidden'); loginSec.classList.add('hidden'); expSec.classList.add('hidden'); };
+    document.getElementById('show-login').onclick = e => { e.preventDefault(); loginSec.classList.remove('hidden'); joinSec.classList.add('hidden'); expSec.classList.add('hidden'); };
+    document.getElementById('logo').onclick = e => { e.preventDefault(); joinSec.classList.remove('hidden'); loginSec.classList.add('hidden'); expSec.classList.add('hidden'); };
+
+    // Sample cards data
+    const activities = ['Basketball','Hiking','Chess','Surfing','Soccer','Tennis','Cricket','Painting'];
+    const cards = document.getElementById('cards');
+    activities.forEach(name => {
+      const card = document.createElement('div');
+      card.className = 'bg-white rounded shadow overflow-hidden';
+      card.innerHTML = `<img src='https://source.unsplash.com/300x200/?${encodeURIComponent(name)}' alt='${name}' class='w-full h-32 object-cover'/><p class='p-2 text-center'>${name}</p>`;
+      cards.appendChild(card);
+    });
+
+    // Signup handler
+    document.getElementById('signup-form').onsubmit = e => {
+      e.preventDefault();
+      joinSec.classList.add('hidden');
+      expSec.classList.remove('hidden');
+    };
+
+    // Login handler (dummy)
+    document.getElementById('login-form').onsubmit = e => {
+      e.preventDefault();
+      // Simulate success
+      loginSec.classList.add('hidden');
+      expSec.classList.remove('hidden');
+    };
   });
   </script>
 </body>
