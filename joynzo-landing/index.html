@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Joynzo</title><script src='https://cdn.tailwindcss.com'></script></head><body class='flex flex-col min-h-screen bg-slate-50'><header class='bg-white shadow p-4 text-teal-600 text-2xl font-bold'>Joynzo</header><section class='p-8 text-center flex-1'><h1 class='text-4xl font-bold mb-4'>Join the joy</h1><div class='grid md:grid-cols-3 gap-4 max-w-4xl mx-auto'><select id='hobbyFilter' class='border p-2 rounded'><option value=''>Any hobby</option></select><select id='langFilter' class='border p-2 rounded'><option value=''>Any language</option><option>English</option><option>Spanish</option></select><select id='ageFilter' class='border p-2 rounded'><option value=''>Any age</option><option value='u18'>Under 18</option><option value='18-34'>18-34</option><option value='35+'>35+</option></select></div><div id='results' class='mt-6 grid md:grid-cols-3 gap-4'></div></section><script>
+const hobbies = {
+  "Ball Sports": ["Basketball","Soccer","American Football","Volleyball","Rugby","Cricket","Baseball","Softball","Handball","Gaelic Football"],
+  "Racquet & Paddle": ["Tennis","Badminton","Table Tennis","Squash","Pickleball","Padel"],
+  "Combat / Martial Arts": ["Boxing","Judo","Karate","Taekwondo","Wrestling","Muay Thai","Brazilian Jiu-Jitsu"],
+  "Athletics & Fitness": ["100 m Sprint","Marathon Running","Long Jump","High Jump","Shot Put","CrossFit","Calisthenics"],
+  "Cycling & Wheels": ["Road Cycling","Mountain Biking","BMX","Skateboarding","Rollerblading"],
+  "Water & Board": ["Swimming","Surfing","Kayaking","Rowing","Paddleboarding","Diving"],
+  "Winter & Ice": ["Skiing","Snowboarding","Ice Hockey","Curling","Figure Skating"],
+  "Traditional / Street": ["Kabaddi","Sepak Takraw","Pétanque","Bocce","Kho Kho","Lagori"],
+  "Board & Tabletop Games": ["Chess","Go","Shogi","Xiangqi","Scrabble","Monopoly","Risk","Ticket to Ride","Catan","Pandemic","Backgammon","Mahjong","Dominoes","Carrom","Mancala"],
+  "Card & Mind Games": ["Poker","Bridge","Gin Rummy","Hearts","Spades"],
+  "Creative Arts & DIY": ["Painting","Drawing","Photography","Pottery","Calligraphy","Knitting","Sculpting","Woodworking","Cooking","Baking"],
+  "Adventure & Outdoor": ["Hiking","Camping","Rock Climbing","Trail Running","Orienteering","Geocaching","Parkour"],
+  "eSports & Console": ["FIFA","Rocket League","League of Legends","Valorant","Fortnite","Call of Duty"]
+};
+const hobbySel=document.getElementById('hobbyFilter');
+Object.entries(hobbies).forEach(([grp,arr])=>{
+  const g=document.createElement('optgroup');g.label=grp;
+  arr.forEach(h=>{const o=document.createElement('option');o.textContent=h;g.appendChild(o);});
+  hobbySel.appendChild(g);
+});
+
+const players=[{name:'Ana',age:20,hobbies:['Basketball','Chess'],langs:['English']},{name:'Bao',age:30,hobbies:['Go','Hiking'],langs:['Mandarin']}];const langSel=document.getElementById('langFilter');const ageSel=document.getElementById('ageFilter');const results=document.getElementById('results');function render(l){results.innerHTML=l.map(p=>`<div class='bg-white p-4 rounded shadow'><h3 class='font-semibold'>${p.name} (${p.age})</h3><p>${p.hobbies.join(', ')}</p></div>`).join('')||'<p>No matches</p>';}function filter(){let l=[...players];const h=hobbySel.value,k=langSel.value,a=ageSel.value;if(h)l=l.filter(p=>p.hobbies.includes(h));if(k)l=l.filter(p=>p.langs.includes(k));if(a){if(a==='u18')l=l.filter(p=>p.age<18);else if(a==='18-34')l=l.filter(p=>p.age>=18&&p.age<=34);else l=l.filter(p=>p.age>=35);}render(l);}[hobbySel,langSel,ageSel].forEach(e=>e.onchange=filter);render(players);</script></body></html>
