@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Joynzo – Find your hobby crew</title>
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <meta name="description" content="Connect with local hobby enthusiasts worldwide—sports, games, arts & more.">
+  <meta name="description" content="Connect with local hobby partners—sports, games, arts & more, securely verified.">
   <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAAAAAClK9W3AAAAEElEQVR4nGNgGAWjYBSMglEwCjAAAJQAAcvL8SsAAAAASUVORK5CYII=">
   <style>body { scroll-behavior: smooth; }</style>
 </head>
@@ -23,43 +23,29 @@
     </div>
   </header>
 
-  <!-- Hero & Waitlist Form -->
+  <!-- Hero & Secure Sign-Up Form -->
   <section id="join" class="flex flex-col items-center justify-center flex-1 p-8 text-center bg-gradient-to-b from-teal-50 via-white to-amber-50">
     <h1 class="text-4xl md:text-5xl font-black mb-4">Join the <span class="text-teal-600">joy</span> with Joynzo</h1>
-    <p class="text-lg md:text-xl text-slate-600 max-w-2xl mb-8">Sign up with your name, email, and a profile picture. We'll connect you with nearby hobby partners—for sports, games, arts, and more.</p>
-    <form action="https://getform.io/f/bxoyeyna" method="POST" enctype="multipart/form-data" class="max-w-md w-full grid grid-cols-1 gap-4 mb-4">
-      <input required type="text" name="name" placeholder="Your name" class="p-3 border rounded-full focus:border-teal-500" />
+    <p class="text-lg md:text-xl text-slate-600 max-w-2xl mb-8">Secure sign-up with profile, photo upload, ID verification, and location ensures a trusted community.</p>
+    <form id="signup-form" class="max-w-md w-full grid grid-cols-1 gap-4 mb-4">
+      <input required type="text" name="fullName" placeholder="Full Name" class="p-3 border rounded-full focus:border-teal-500" />
       <input required type="email" name="email" placeholder="Email address" class="p-3 border rounded-full focus:border-teal-500" />
-      <input required type="file" name="profile_image" accept="image/*" class="p-3 border rounded-lg" />
+      <input required type="password" name="password" placeholder="Password" class="p-3 border rounded-full focus:border-teal-500" />
+      <input required type="file" name="profilePhotos" accept="image/*" multiple class="p-3 border rounded-lg" />
+      <input required type="file" name="govtId" accept="image/*,application/pdf" class="p-3 border rounded-lg" />
       <button type="submit" class="bg-amber-400 hover:bg-amber-500 text-white font-semibold px-6 py-3 rounded-full transition">Join Waitlist</button>
     </form>
-    <p id="thanks" class="hidden text-xs text-teal-700">🎉 Thanks! We’ll keep you posted.</p>
+    <p id="signup-thanks" class="hidden text-xs text-teal-700">🎉 Thank you! We’ll review your identity and notify you.</p>
   </section>
 
   <!-- Explore & Filters -->
-  <section id="explore" class="max-w-6xl mx-auto py-16 px-4 w-full">
-    <h2 class="text-3xl font-bold text-center mb-10">Find players near you</h2>
-    <div class="grid md:grid-cols-3 gap-4 mb-10">
+  <section id="explore" class="max-w-6xl mx-auto py-16 px-4 w-full hidden">
+    <h2 class="text-3xl font-bold text-center mb-10">Find verified players near you</h2>
+    <div class="grid md:grid-cols-4 gap-4 mb-10">
       <select id="hobby" class="border p-2 rounded-lg text-sm"><option value="">Any hobby</option></select>
-      <select id="lang" class="border p-2 rounded-lg text-sm">
-        <option value="">Any language</option>
-        <option>English</option><option>Spanish</option><option>French</option><option>Hindi</option><option>Mandarin</option>
-      </select>
-      <select id="age" class="border p-2 rounded-lg text-sm">
-        <option value="">Any age</option>
-        <option value="u18">Under 18</option>
-        <option value="18-34">18 – 34</option>
-        <option value="35+">35+</option>
-      </select>
-      <select id="radius" class="border p-2 rounded-lg text-sm">
-        <option value="">Any distance</option>
-        <option value="10">Within 10 km</option>
-        <option value="25">Within 25 km</option>
-        <option value="50">Within 50 km</option>
-        <option value="100">Within 100 km</option>
-        <option value="500">Within 500 km</option>
-        <option value="1000">Worldwide</option>
-      </select>
+      <select id="lang" class="border p-2 rounded-lg text-sm"><option value="">Any language</option><option>English</option><option>Spanish</option><option>Mandarin</option></select>
+      <select id="age" class="border p-2 rounded-lg text-sm"><option value="">Any age</option><option value="u18">Under 18</option><option value="18-34">18–34</option><option value="35+">35+</option></select>
+      <select id="radius" class="border p-2 rounded-lg text-sm"><option value="">Any distance</option><option value="10">Within 10 km</option><option value="25">Within 25 km</option><option value="50">Within 50 km</option><option value="100">Within 100 km</option><option value="500">Within 500 km</option><option value="1000">Worldwide</option></select>
     </div>
     <div id="results" class="grid md:grid-cols-3 gap-6"></div>
   </section>
@@ -69,76 +55,115 @@
     Joynzo © 2025 • <a href="/privacy.html" class="underline">Privacy</a> • <a href="/terms.html" class="underline">Terms</a>
   </footer>
 
-  <!-- Scripts: dynamic list & filters -->
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
   <script>
-    // Hobby groups
-    const hobbies = {
-      "Ball Sports": ["Basketball","Soccer","American Football","Volleyball","Rugby","Cricket","Baseball","Softball","Handball","Gaelic Football"],
-      "Racquet & Paddle": ["Tennis","Badminton","Table Tennis","Squash","Pickleball","Padel"],
-      "Combat / Martial Arts": ["Boxing","Judo","Karate","Taekwondo","Wrestling","Muay Thai","Brazilian Jiu-Jitsu"],
-      "Athletics & Fitness": ["100 m Sprint","Marathon Running","Long Jump","High Jump","Shot Put","CrossFit","Calisthenics"],
-      "Cycling & Wheels": ["Road Cycling","Mountain Biking","BMX","Skateboarding","Rollerblading"],
-      "Water & Board": ["Swimming","Surfing","Kayaking","Rowing","Paddleboarding","Diving"],
-      "Winter & Ice": ["Skiing","Snowboarding","Ice Hockey","Curling","Figure Skating"],
-      "Traditional / Street": ["Kabaddi","Sepak Takraw","Pétanque","Bocce","Kho Kho","Lagori"],
-      "Board & Tabletop Games": ["Chess","Go","Shogi","Xiangqi","Scrabble","Monopoly","Risk","Ticket to Ride","Catan","Pandemic","Backgammon","Mahjong","Dominoes","Carrom","Mancala"],
-      "Card & Mind Games": ["Poker","Bridge","Gin Rummy","Hearts","Spades"],
-      "Creative Arts & DIY": ["Painting","Drawing","Photography","Pottery","Calligraphy","Knitting","Sculpting","Woodworking","Cooking","Baking"],
-      "Adventure & Outdoor": ["Hiking","Camping","Rock Climbing","Trail Running","Orienteering","Geocaching","Parkour"],
-      "eSports & Console": ["FIFA","Rocket League","League of Legends","Valorant","Fortnite","Call of Duty"]
-    };
+    
+const firebaseConfig = {
+  apiKey: "AIzaSyBHkftop81C7b0Xl_BXbHp-OMXvbDzsQNY",
+  authDomain: "joynzo-37e5a.firebaseapp.com",
+  projectId: "joynzo-37e5a",
+  storageBucket: "joynzo-37e5a.firebasestorage.app",
+  messagingSenderId: "821571585209",
+  appId: "1:821571585209:web:ef83605a814b4bd9bb0768",
+  measurementId: "G-8H41E1Y6VQ"
+};                    
+};
+
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+
+    // Sign-up logic
+    document.getElementById('signup-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = e.target;
+      const name = form.fullName.value;
+      const email = form.email.value;
+      const pwd = form.password.value;
+      const photos = Array.from(form.profilePhotos.files);
+      const idFile = form.govtId.files[0];
+      try {
+        const userCred = await auth.createUserWithEmailAndPassword(email, pwd);
+        const uid = userCred.user.uid;
+        // Upload photos
+        const photoURLs = await Promise.all(photos.map(async (file, i) => {
+          const snap = await storage.ref(`users/${uid}/photo_${i}`).put(file);
+          return snap.ref.getDownloadURL();
+        }));
+        // Upload ID
+        const idSnap = await storage.ref(`users/${uid}/govt_id`).put(idFile);
+        const idURL = await idSnap.ref.getDownloadURL();
+        // Geolocation
+        const pos = await new Promise(res => navigator.geolocation.getCurrentPosition(res));
+        const geo = new firebase.firestore.GeoPoint(pos.coords.latitude, pos.coords.longitude);
+        // Save user doc
+        await db.collection('users').doc(uid).set({ name, email, photoURLs, idURL, geo, ageGroup: null, langs: [], hobbies: [] });
+        form.reset();
+        document.getElementById('signup-thanks').classList.remove('hidden');
+        // Show explore section
+        document.getElementById('join').classList.add('hidden');
+        document.getElementById('explore').classList.remove('hidden');
+        loadPlayers();
+      } catch(err) {
+        alert(err.message);
+      }
+    });
+
+    // Populate hobby list
     const hobbySel = document.getElementById('hobby');
-    for (const [group, list] of Object.entries(hobbies)) {
-      const og = document.createElement('optgroup'); og.label = group;
-      list.forEach(h => { const o = document.createElement('option'); o.textContent = h; og.appendChild(o); });
-      hobbySel.appendChild(og);
+    Object.entries(hobbies).forEach(([g,list]) => { const og = document.createElement('optgroup'); og.label=g; list.forEach(h=>{ const o=document.createElement('option'); o.textContent=h; og.appendChild(o); }); hobbySel.appendChild(og); });
+
+    // Load players from Firestore
+    async function loadPlayers() {
+      const snapshot = await db.collection('users').get();
+      window.players = snapshot.docs.map(d => d.data());
+      applyFilters();
     }
 
-    // Sample players
-    const players = [
-      { name:'Alisha', age:17, langs:['English','Hindi'], hobbies:['Basketball','Chess'] },
-      { name:'Miguel', age:27, langs:['Spanish'], hobbies:['Soccer','Hiking'] },
-      { name:'Wei', age:34, langs:['Mandarin'], hobbies:['Badminton','Painting'] }
-    ];
-
+    // Filters & distance
     const langSel = document.getElementById('lang');
     const ageSel = document.getElementById('age');
+    const radiusSel = document.getElementById('radius');
     const results = document.getElementById('results');
-
+    function distance(lat1, lon1, lat2, lon2) { const R=6371, dLat=(lat2-lat1)*Math.PI/180, dLon=(lon2-lon1)*Math.PI/180; const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2; return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)); }
+    function applyFilters() {
+      const u = auth.currentUser;
+      const geo = u ? db.collection('users').doc(u.uid).get().then(doc=>doc.data().geo) : Promise.resolve(null);
+      geo.then(userGeo => {
+        let list = window.players || [];
+        if (hobbySel.value) list = list.filter(p=>p.hobbies.includes(hobbySel.value));
+        if (langSel.value) list = list.filter(p=>p.langs.includes(langSel.value));
+        if (ageSel.value) { list = list.filter(p=>{
+          const [min,max] = ageSel.value==='u18'? [0,17] : ageSel.value==='35+'? [35,200] : [18,34];
+          return p.age>=min && p.age<=max;
+        }); }
+        const r = Number(radiusSel.value);
+        if (r && userGeo) list = list.filter(p => distance(userGeo.latitude, userGeo.longitude, p.geo.latitude, p.geo.longitude) <= r);
+        render(list);
+      });
+    }
     function render(list) {
       results.innerHTML = list.length ? '' : '<p class="text-sm text-slate-500">No matches found.</p>';
       list.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'bg-white p-5 rounded shadow-sm';
+        const card = document.createElement('div'); card.className = 'bg-white p-5 rounded shadow-sm';
+        const dist = auth.currentUser ? distance(auth.currentUser.geo.latitude, auth.currentUser.geo.longitude, p.geo.latitude, p.geo.longitude).toFixed(1)+' km away' : '';
         card.innerHTML = `<h3 class='font-semibold mb-1'>${p.name} (${p.age})</h3>
           <p class='text-xs text-slate-500 mb-2'>${p.langs.join(', ')}</p>
-          <p class='text-sm'><strong>Hobbies:</strong> ${p.hobbies.join(', ')}</p>`;
+          <p class='text-sm'><strong>Hobbies:</strong> ${p.hobbies.join(', ')}</p>
+          <p class='text-xs text-slate-400'>${dist}</p>`;
         results.appendChild(card);
       });
     }
 
-    function applyFilters() {
-      let list = [...players];
-      if (hobbySel.value) list = list.filter(p => p.hobbies.includes(hobbySel.value));
-      if (langSel.value) list = list.filter(p => p.langs.includes(langSel.value));
-      if (ageSel.value) {
-        if (ageSel.value === 'u18') list = list.filter(p => p.age < 18);
-        else if (ageSel.value === '18-34') list = list.filter(p => p.age >= 18 && p.age <= 34);
-        else list = list.filter(p => p.age >= 35);
-      }
-      render(list);
-    }
-
-    hobbySel.addEventListener('change', applyFilters);
-    langSel.addEventListener('change', applyFilters);
-    ageSel.addEventListener('change', applyFilters);
-    render(players);
-
-    // Form success flash
-    document.querySelector('form').addEventListener('submit', () => {
-      setTimeout(() => document.getElementById('thanks').classList.remove('hidden'), 500);
-    });
+    [hobbySel, langSel, ageSel, radiusSel].forEach(el=>el.addEventListener('change', applyFilters));
   </script>
 </body>
 </html>
-```
